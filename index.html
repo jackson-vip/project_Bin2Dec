@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="#" type="image/x-icon">
+    <title>Project Bin2Dec</title>
+    <!-- Bootstrap 5 min -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!-- css -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="bg-dark d-flex justify-contant-center align-items-center">
+    <div class="container text-white border border-primary-subtle rounded-1 b-1">
+        <h3 class="my-4 p-2 text-center">Converter número Binário em Decimal</h3>
+        <div class="bg-secondary d-flex flex-column gap-2 p-3 rounded-1" id='box'>
+            <fieldset class="mb-1">Digite um valor Binário:</fieldset>
+            <input type="text" name="nunBin" id="nunBin" placeholder="Digite um número binário aqui"
+                class="form-control">
+            <p class="" id="warning"></p>
+
+            <fieldset class="mb-1 mt-2">Resultado da conversão para Decimal :</fieldset>
+            <input type="text" name="resultDec" id="resultDec" class="form-control mb-3" disabled>
+        </div>
+        <div class="d-grid my-3">
+            <button type="button" class="btn btn-primary my-3" onclick="convertBinDec()">Converter</button>
+            <button type="button" class="btn btn-danger my-2s" onclick="clean()">Limpar</button>
+        </div>
+    </div>
+    <!-- JS -->
+    <script>
+        const fieldInputBin = document.getElementById('nunBin');
+        const fieldOutDec = document.getElementById('resultDec');
+        const alerta = document.getElementById('warning');
+
+        function convertBinDec() {
+            const numBinario = fieldInputBin.value;
+            const nun = numBinario.length;
+            let decimal = 0;
+
+            for (let i = nun - 1; i >= 0; i--) {
+                decimal += parseInt(numBinario[i]) * Math.pow(2, nun - 1 - i);
+            }
+
+            if (fieldOutDec === '') {
+                fieldOutDec.value += '';
+            } else {
+                fieldOutDec.value = decimal;
+            }
+        };
+
+        function clean() {
+            fieldInputBin.value = '';
+            fieldOutDec.value = '';
+            alerta.innerHTML = '';
+
+            fieldInputBin.focus();
+        };
+
+        fieldInputBin.addEventListener('input', (e) => {
+            const field = e.target;
+            let str = field.value.replace(/[^01]/g, '').substring(0, 20); // removendo tudo que não for 0 ou 1 
+
+            if (str === '') {
+                fieldOutDec.value = '';
+            }
+            field.value = str;
+        });
+
+        fieldInputBin.addEventListener('blur', (e) => {
+            const field = e.target;
+            let str = field.value;
+
+            if (str === '') {
+                alerta.innerHTML = '* Atenção o campo está vazio, por favor digitar número binário válido Ex. ( 001110 ) ';
+                fieldOutDec.value = '';
+            }
+        });
+
+        fieldInputBin.addEventListener('focus', (e) => {
+            const field = e.target;
+            let str = field.value;
+
+            if (str === '') {
+                alerta.innerHTML = '';
+                fieldOutDec.value = '';
+
+            }
+        });
+    </script>
+</body>
+</html>

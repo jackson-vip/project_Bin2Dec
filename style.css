@@ -1,0 +1,30 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    height: 100vh;
+    font-size: 16px;
+}
+
+.container{
+    background: url(bgAplication.png) no-repeat center center;
+    background-size: 400px;
+    width: 400px !important;
+}
+
+#box{
+    background-color: #023047 !important;
+}
+
+#nunBin::placeholder{
+    font-size: .8rem;
+}
+
+#warning {
+    font-size: .8rem;
+    height: 1.5rem;
+    color: #ff9f1c;
+}
